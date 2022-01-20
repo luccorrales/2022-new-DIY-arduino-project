@@ -1,0 +1,248 @@
+int MotorInput = 2;
+int MotorOutput = 7;
+int read1 = A0;
+int val1 = 0;
+int read2 = A1;
+int val2 = 0;
+int counter=0;
+int save=0;
+int x=0;
+int y=0;
+
+
+////////////////////////////////////////////////
+int a=7; 
+int b=6; 
+int c=5; 
+int d=11; 
+int e=10; 
+int f=8; 
+int g=9; 
+int dp=4; 
+//display number 1
+void display1(void) 
+{ 
+    digitalWrite(b,HIGH);
+    digitalWrite(c,HIGH);
+} 
+//display number2
+void display2(void) 
+{
+    digitalWrite(a,HIGH);
+    digitalWrite(b,HIGH);
+    digitalWrite(g,HIGH);
+  digitalWrite(e,HIGH);
+    digitalWrite(d,HIGH);
+} 
+// display number3
+void display3(void) 
+{ 
+    digitalWrite(a,HIGH);
+    digitalWrite(b,HIGH);
+    
+  digitalWrite(c,HIGH);
+    digitalWrite(d,HIGH);
+    digitalWrite(g,HIGH);
+} 
+// display number4
+void display4(void) 
+{ 
+    digitalWrite(f,HIGH);
+    digitalWrite(b,HIGH);
+    digitalWrite(g,HIGH);
+  digitalWrite(c,HIGH);
+  
+} 
+// display number5
+void display5(void) 
+{ 
+    digitalWrite(a,HIGH);
+    digitalWrite(f,HIGH);
+    digitalWrite(g,HIGH);
+  digitalWrite(c,HIGH);
+    digitalWrite(d,HIGH);
+} 
+// display number6
+void display6(void) 
+{ 
+    digitalWrite(a,HIGH);
+    digitalWrite(f,HIGH);
+    digitalWrite(g,HIGH);
+  digitalWrite(c,HIGH);
+    digitalWrite(d,HIGH);  
+    digitalWrite(e,HIGH);  
+} 
+// display number7
+void display7(void) 
+{   
+   digitalWrite(a,HIGH);
+    digitalWrite(b,HIGH);
+    digitalWrite(c,HIGH);
+} 
+// display number8
+void display8(void) 
+{ 
+    digitalWrite(a,HIGH);
+    digitalWrite(b,HIGH);
+    digitalWrite(g,HIGH);
+  digitalWrite(c,HIGH);
+    digitalWrite(d,HIGH);  
+    digitalWrite(e,HIGH);  
+  digitalWrite(f,HIGH);  
+} 
+void clearDisplay(void) 
+{ 
+    digitalWrite(a,LOW);
+    digitalWrite(b,LOW);
+    digitalWrite(g,LOW);
+  digitalWrite(c,LOW);
+    digitalWrite(d,LOW);  
+    digitalWrite(e,LOW);  
+  digitalWrite(f,LOW);  
+} 
+void display9(void) 
+{ 
+    digitalWrite(a,HIGH);
+    digitalWrite(b,HIGH);
+    digitalWrite(g,HIGH);
+  digitalWrite(c,HIGH);
+    digitalWrite(d,HIGH);  
+  digitalWrite(f,HIGH);  
+} 
+void display0(void) 
+{ 
+    digitalWrite(a,HIGH);
+    digitalWrite(b,HIGH);
+  digitalWrite(c,HIGH);
+    digitalWrite(d,HIGH);  
+    digitalWrite(e,HIGH);  
+  digitalWrite(f,HIGH);  
+} 
+////////////////////////////////////////////////////////////////////
+
+
+void setup() 
+{
+
+   int i;
+    for(i=4;i<=11;i++) 
+        pinMode(i,OUTPUT);
+
+        
+    pinMode(MotorInput, INPUT_PULLUP);
+    pinMode(MotorOutput , OUTPUT);
+    Serial.begin(9600);           //  setup serial
+    val1 = analogRead(read1);
+    val2 = analogRead(read2);
+}
+
+void loop() 
+{
+if (counter < 1)
+{
+  digitalWrite(2, LOW);
+}
+else
+{
+  digitalWrite(2, HIGH);
+}
+/////////////////////////////////////////////////////////////////
+if (counter < 1)
+{
+   clearDisplay();
+        display0(); 
+        
+}
+if (counter == 1)
+{
+   clearDisplay();
+        display1(); 
+        
+}
+if (counter == 2)
+{
+   clearDisplay();
+        display2(); 
+        
+}
+if (counter == 3)
+{
+   clearDisplay();
+        display3(); 
+        
+}
+if (counter == 4)
+{
+   clearDisplay();
+        display4(); 
+        
+}
+if (counter == 5)
+{
+   clearDisplay();
+        display5(); 
+        
+}
+if (counter == 6)
+{
+   clearDisplay();
+        display6(); 
+        
+}
+if (counter == 7)
+{
+   clearDisplay();
+        display7(); 
+        
+}
+if (counter == 8)
+{
+   clearDisplay();
+        display8(); 
+        
+}
+if (counter == 9)
+{
+   clearDisplay();
+        display9(); 
+        
+}
+/////////////////////////////////////////////////////////////////
+
+if (val2 > 950 && val1 < 950 && x==0 && y==0){
+y=1;
+}
+
+if (y==1 && val1>950 && x==0 && val2 < 900) { // if BOTH the switches read HIGH
+  counter=save-1;
+  save=counter;
+  y=0;
+    val1=0;
+  delay(1000);
+}
+/////////////////////////////////////////////////////////////////////
+if (val1>950 && val2<900 && x==0 && y==0){
+x=1;
+}
+
+if (x==1 && val2>900 && y==0 && val1 < 950) { // if BOTH the switches read HIGH
+  counter=save+1;
+  save=counter;
+  x=0;
+  val2=0;
+   delay(1000);
+}
+/////////////////////////////////////////////////////////////////////////
+  val1 = analogRead(read1);  // read the input pin
+// Serial.println(val1);          // debug value
+    val2 = analogRead(read2);  // read the input pin
+  //Serial.println(val2);          // debug value
+  //  Serial.println("counter:");
+  Serial.println(counter);
+  //Serial.println("x:");
+   //Serial.println(x);
+  // Serial.println("y:");
+   // Serial.println(y);
+  delay(5);
+     
+}
